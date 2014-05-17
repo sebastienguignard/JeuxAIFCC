@@ -1,7 +1,5 @@
 package com.race.game.races;
 
-import sun.security.x509.DeltaCRLIndicatorExtension;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -91,63 +88,11 @@ public class Bitume extends Actor implements Screen
 		car.draw(batch);
 		batch.end();   
 		
-		// Save old position
-		float oldX = getX(), oldY = getY();
-		float tiledWidth = collisionLayer.getTileWidth(), tiledHeight = collisionLayer.getTileHeight();
-		boolean collisionX = false, collisionY = false;
-		
 		// move the player
-		car.setX(car.getX() + velocity.x * delta);
-		car.setY(car.getY() + velocity.y * delta);
-		
-		// react to collision
-		if (collisionX)
-		{
-			setX(oldX);
-			touchpad.setX(0);
-		}
-		
-		if (collisionY)
-		{
-			setY(oldY);
-			touchpad.setY(0);
-		}
+		car.setX(car.getX() + touchpad.getKnobPercentX() * 17);
+		car.setY(car.getY() + touchpad.getKnobPercentY() * 11);
 	}
-		
-		private boolean isCellBlocked(float x, float y) {
-			Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
-			return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("limit");
-		}
-
-		public boolean collidesRight() {
-			for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-				if(isCellBlocked(getX() + getWidth(), getY() + step))
-					return true;
-			return false;
-		}
-
-		public boolean collidesLeft() {
-			for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-				if(isCellBlocked(getX(), getY() + step))
-					return true;
-			return false;
-		}
-
-		public boolean collidesTop() {
-			for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-				if(isCellBlocked(getX() + step, getY() + getHeight()))
-					return true;
-			return false;
-
-		}
-
-		public boolean collidesBottom() {
-			for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-				if(isCellBlocked(getX() + step, getY()))
-					return true;
-			return false;
-		}
-
+	
 	public void TouchPad() {
 
 		//Create a touchpad skin	
