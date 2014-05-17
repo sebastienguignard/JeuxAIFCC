@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="terrain_3" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="1" y="1"/>
+  <image source="bitume.png" width="579" height="325"/>
+  <tile id="86">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="154" name="terrain_2" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="1" y="1"/>
+  <image source="depart.png" width="639" height="384"/>
+ </tileset>
+ <tileset firstgid="363" name="fleche_gauche" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="1" y="1"/>
+  <image source="../../data/fleche_gauche.png" width="150" height="150"/>
+  <tile id="4">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="gauche" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque de Tile 1" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1MsRgCAMBFBqsRZ6oFp788o4fLLZkIljDnsSwgMirZTSMr/KtQk7XxK29knbrD5bw8qG1N6NQb4jPSHxoXW0ttF81C8Zy9gQn/Yuovhm49OXvq/6kPfP2yd5e0/7RoZV3vPvLtY+1nby/Cxsnj70v7Hwrc6BPbcovt26mjuQrmNhrF20PcL2ldRXwT1bRuKLZovg8+ypTJw8Rb86vA==
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="1000" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="racetrack" tilewidth="32" tileheight="32">
+  <image source="racetrack.png" width="1982" height="2064"/>
+ </tileset>
+ <tileset firstgid="3905" name="race" tilewidth="32" tileheight="32">
+  <image source="race.png" width="960" height="630"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="1000" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt3MexE2kYhlEtZtY9MeE9hID3kABVeA8h4D2EgPcQFk8AqDTa3JauzuKs/n6qvu276XP/TSbnAAAAAAAAAIC/2jBMJhuzKZuzJVuzLduzIzuzK7uzJ3uzb9Cu13aZbtVq16pdhBu02lVtl+1erVar1WpntdP2+f7eDuRgDuVwjuRojuV4TuRkTuV0zuTsoF2v7TLdqtWuVbsIN2i1q9ou271arVar1c5qp+3z871dyMVcyuVcydVcy/XcyM3cyu3cyd1Bu17bZbpVq12rdhFu0GpXtV22e7VarVarndVO2+f3erufB3mYR3mcJ3maZ3meF3mZV3mdN4N2vbbLdKtWu1btItyg1a5qu2z3arVarVY7q522z9/29i7v8yEf8ymf8yVf8y3f8yM/8yu/B+16bZfpVq12rdpFuEGrXdV22e7VarVarXZWO/Z/6AAAAIDp/v2f/pnjWwAAAODv7HMAAAAYn30OAAAA47PPAQAAYHz2OQAAAIzPPgcAAIDx2ecAAAAwPvscAAAAxmefAwAAwPjscwAAABiffQ4AAADjs88BAABgfNP2OQAAADC+DcNksjGbsjlbsjXbsj07sjO7sjt7sjf7Bq1Wq9VqtVqtVqvVarXzttP2+f7eDuRgDuVwjuRojuV4TuRkTuV0zuTsoNVqtVqtVqvVarVarXbedto+P9/bhVzMpVzOlVzNtVzPjdzMrdzOndwdtFqtVqvVarVarVar1c7bTtvn93q7nwd5mEd5nCd5mmd5nhd5mVd5nTeDVqvVarVarVar1Wq12nnbafv8bW/v8j4f8jGf8jlf8jXf8j0/8jO/8nvQarVarVar1Wq1Wq1WO2879n/oAAAAAAAAAAAAAAAAAAAAWAx/AN1xhVQ=
+  </data>
+ </layer>
+</map>
