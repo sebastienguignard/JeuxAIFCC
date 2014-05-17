@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="desert" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="1" y="1"/>
+  <image source="desert.png" width="398" height="199"/>
+  <tile id="9">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="73" name="depart" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="1" y="1"/>
+  <image source="depart.png" width="639" height="384"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzNmEEShCAMBDm7T9HTPsHyE/7/I3tZqlKpkAxDQA85BZgmjhG5SimXii0x9iCi+ZlciN5sjZ691/gSwfJpL0R1Z9g8PoQJzbFsHt/ImiO6JzBuJZvlYT12b+RW1Uxz3iIivtl9wuLz9K3c4azr5RBvSzaWj9W21vHyGXxeX468h/qSzXnfTOZdsbQY9uoxtHYIN7Inq9+z/ovmIfXQa2TwHeQ8j1HmvG9lRv0sL4yc43o9jvBZntXPztqHNTeD7wy0pKauY2s/Vm9k+RgPRoGeg3v7SEbIujLzVvBVrTfzMf7L/lfr4cvW8sbqc/0TPtd6vc92FR/ju9orn6xVi0328hl3L6y/ozuK6E6HvetBoq71+ccPwuST7A==
+  </data>
+ </layer>
+</map>

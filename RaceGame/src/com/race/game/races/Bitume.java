@@ -1,5 +1,7 @@
 package com.race.game.races;
 
+import sun.security.x509.DeltaCRLIndicatorExtension;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,9 +11,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -33,7 +36,8 @@ public class Bitume extends Actor implements Screen
 	private Drawable touchKnob;
 	private Texture carTxt;
 	private Sprite car;
-	private float carSpeedX, carSpeedY;
+	private Vector2 velocity;
+	private TiledMapTileLayer collisionLayer;
 
 	public Bitume() {
 
@@ -45,23 +49,23 @@ public class Bitume extends Actor implements Screen
 		//Create block sprite
 		carTxt = new Texture(Gdx.files.internal("cars/car4.png"));
 		car = new Sprite(carTxt);
-		car.setSize(135, 90);
+		car.setSize(100, 70);
 		car.setPosition((float) (Gdx.graphics.getWidth() * 0.47) , (float) (Gdx.graphics.getHeight()));
-		carSpeedX = 20;
-		carSpeedY = 10;
-		
+
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.addActor(touchpad);
 
 		// Level
-		map = new TmxMapLoader().load("maps/test/test.tmx");
+		map = new TmxMapLoader().load("maps/bitume/bitume.tmx");
+		map.getLayers();
 		renderer = new OrthogonalTiledMapRenderer(map);
 
 		// Camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false);
 		camera.update();
-
+		
+		velocity = new Vector2();
 	}
 
 	@Override
@@ -71,10 +75,6 @@ public class Bitume extends Actor implements Screen
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		//Move the car with TouchPad
-		car.setX(car.getX() + touchpad.getKnobPercentX()*carSpeedX);
-		car.setY(car.getY() + touchpad.getKnobPercentY()*carSpeedY);
-		
 		// to follow the player
 		camera.position.set(car.getX() + 300, car.getY(), 0);
 		camera.update();
@@ -90,17 +90,63 @@ public class Bitume extends Actor implements Screen
 		batch.begin();
 		car.draw(batch);
 		batch.end();   
-
-		final TiledMapTileLayer collision = (TiledMapTileLayer) map.getLayers().get(0);
-		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
-		final int tileY = (int)(car.getY()/32);
-
-//		if(collision.getCell(tileX, tileY).getTile().getProperties().containsKey("limit"))
-//		{
-//			car.setX((float) (Gdx.graphics.getWidth() * 0.50));
-//			car.setY((float) (Gdx.graphics.getHeight() * 0.35));
-//		}
+		
+		// Save old position
+		float oldX = getX(), oldY = getY();
+		float tiledWidth = collisionLayer.getTileWidth(), tiledHeight = collisionLayer.getTileHeight();
+		boolean collisionX = false, collisionY = false;
+		
+		// move the player
+		car.setX(car.getX() + velocity.x * delta);
+		car.setY(car.getY() + velocity.y * delta);
+		
+		// react to collision
+		if (collisionX)
+		{
+			setX(oldX);
+			touchpad.setX(0);
+		}
+		
+		if (collisionY)
+		{
+			setY(oldY);
+			touchpad.setY(0);
+		}
 	}
+		
+		private boolean isCellBlocked(float x, float y) {
+			Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
+			return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("limit");
+		}
+
+		public boolean collidesRight() {
+			for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
+				if(isCellBlocked(getX() + getWidth(), getY() + step))
+					return true;
+			return false;
+		}
+
+		public boolean collidesLeft() {
+			for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
+				if(isCellBlocked(getX(), getY() + step))
+					return true;
+			return false;
+		}
+
+		public boolean collidesTop() {
+			for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
+				if(isCellBlocked(getX() + step, getY() + getHeight()))
+					return true;
+			return false;
+
+		}
+
+		public boolean collidesBottom() {
+			for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
+				if(isCellBlocked(getX() + step, getY()))
+					return true;
+			return false;
+		}
 
 	public void TouchPad() {
 
@@ -121,7 +167,7 @@ public class Bitume extends Actor implements Screen
 		//Create new TouchPad with the created style
 		touchpad = new Touchpad(10, touchpadStyle);
 		//setBounds(x,y,width,height)
-		touchpad.setBounds(15, 15, 150, 150);	
+		touchpad.setBounds(15, 15, (float) (Gdx.graphics.getWidth() * 0.25), (float) (Gdx.graphics.getHeight() * 0.40));
 	}
 	@Override
 	public void resize(int width, int height) {

@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -32,7 +31,7 @@ public class Snow extends Actor implements Screen
 	private Drawable touchKnob;
 	private Texture carTxt;
 	private Sprite car;
-	private float carSpeed;
+	private float carSpeedX, carSpeedY;
 
 	public Snow() {
 
@@ -42,17 +41,19 @@ public class Snow extends Actor implements Screen
 		TouchPad();
 
 		//Create block sprite
-		carTxt = new Texture(Gdx.files.internal("cars/car1.png"));
+		carTxt = new Texture(Gdx.files.internal("cars/car4.png"));
 		car = new Sprite(carTxt);
-		car.setSize(100, 160);
-		car.setPosition((float) (Gdx.graphics.getWidth() * 0.99) , (float) (Gdx.graphics.getHeight() * 0.40));
-		carSpeed = 3;
+		car.setSize(135, 90);
+		car.setPosition((float) (Gdx.graphics.getWidth() * 0.47) , (float) (Gdx.graphics.getHeight()));
+		carSpeedX = 20;
+		carSpeedY = 10;
 		
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.addActor(touchpad);
 
 		// Level
-		map = new TmxMapLoader().load("maps/test/test.tmx");
+		map = new TmxMapLoader().load("maps/rallye/rallye.tmx");
+		map.getLayers();
 		renderer = new OrthogonalTiledMapRenderer(map);
 
 		// Camera
@@ -70,11 +71,11 @@ public class Snow extends Actor implements Screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		//Move the car with TouchPad
-		car.setX(car.getX() + touchpad.getKnobPercentX()*carSpeed);
-		car.setX(car.getY() + touchpad.getKnobPercentY()*carSpeed);
+		car.setX(car.getX() + touchpad.getKnobPercentX()*carSpeedX);
+		car.setY(car.getY() + touchpad.getKnobPercentY()*carSpeedY);
 		
 		// to follow the player
-		camera.position.set(car.getX(), car.getY() + 175, 0);
+		camera.position.set(car.getX() + 300, car.getY(), 0);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
@@ -89,9 +90,9 @@ public class Snow extends Actor implements Screen
 		car.draw(batch);
 		batch.end();   
 
-		final TiledMapTileLayer collision = (TiledMapTileLayer) map.getLayers().get(0);
-		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
-		final int tileY = (int)(car.getY()/32);
+//		final TiledMapTileLayer collision = (TiledMapTileLayer) map.getLayers().get(0);
+//		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
+//		final int tileY = (int)(car.getY()/32);
 
 //		if(collision.getCell(tileX, tileY).getTile().getProperties().containsKey("limit"))
 //		{

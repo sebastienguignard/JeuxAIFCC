@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -44,7 +43,7 @@ public class Rallye extends Actor implements Screen
 		//Create block sprite
 		carTxt = new Texture(Gdx.files.internal("cars/car4.png"));
 		car = new Sprite(carTxt);
-		car.setSize(135, 90);
+		car.setSize(100, 70);
 		car.setPosition((float) (Gdx.graphics.getWidth() * 0.47) , (float) (Gdx.graphics.getHeight()));
 		carSpeedX = 20;
 		carSpeedY = 10;
@@ -53,14 +52,14 @@ public class Rallye extends Actor implements Screen
 		stage.addActor(touchpad);
 
 		// Level
-		map = new TmxMapLoader().load("maps/Rallye/Rallye.tmx");
+		map = new TmxMapLoader().load("maps/rallye/rallye.tmx");
+		map.getLayers();
 		renderer = new OrthogonalTiledMapRenderer(map);
 
 		// Camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false);
 		camera.update();
-
 	}
 
 	@Override
@@ -90,15 +89,16 @@ public class Rallye extends Actor implements Screen
 		car.draw(batch);
 		batch.end();   
 
-		final TiledMapTileLayer collision = (TiledMapTileLayer) map.getLayers().get(0);
-		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
-		final int tileY = (int)(car.getY()/32);
+//		final TiledMapTileLayer collision = (TiledMapTileLayer) map.getLayers().get(0);
+//		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
+//		final int tileY = (int)(car.getY()/32);
 
 //		if(collision.getCell(tileX, tileY).getTile().getProperties().containsKey("limit"))
 //		{
 //			car.setX((float) (Gdx.graphics.getWidth() * 0.50));
 //			car.setY((float) (Gdx.graphics.getHeight() * 0.35));
 //		}
+
 	}
 
 	public void TouchPad() {
@@ -120,12 +120,12 @@ public class Rallye extends Actor implements Screen
 		//Create new TouchPad with the created style
 		touchpad = new Touchpad(10, touchpadStyle);
 		//setBounds(x,y,width,height)
-		touchpad.setBounds(15, 15, 150, 150);	
+		touchpad.setBounds(15, 15, (float) (Gdx.graphics.getWidth() * 0.25), (float) (Gdx.graphics.getHeight() * 0.40));
 	}
 	@Override
 	public void resize(int width, int height) {
 		float aspectRatio = (float) width / (float) height;
-		camera = new OrthographicCamera(600f * aspectRatio, 600f);
+		camera = new OrthographicCamera(550f * aspectRatio, 550f);
 	}
 
 	@Override
