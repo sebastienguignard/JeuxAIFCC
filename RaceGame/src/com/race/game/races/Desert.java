@@ -40,7 +40,7 @@ public class Desert extends Actor implements Screen
 		Gdx.input.setInputProcessor(stage);
 		TouchPad();
 
-		//Create block sprite
+		// Create block sprite
 		carTxt = new Texture(Gdx.files.internal("cars/car4.png"));
 		car = new Sprite(carTxt);
 		car.setSize(135, 90);
