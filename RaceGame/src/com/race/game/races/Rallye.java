@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -47,7 +48,7 @@ public class Rallye extends Actor implements Screen
 		car.setPosition((float) (Gdx.graphics.getWidth() * 0.47) , (float) (Gdx.graphics.getHeight()));
 		carSpeedX = 20;
 		carSpeedY = 10;
-		
+
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.addActor(touchpad);
 
@@ -69,10 +70,6 @@ public class Rallye extends Actor implements Screen
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		//Move the car with TouchPad
-		car.setX(car.getX() + touchpad.getKnobPercentX()*carSpeedX);
-		car.setY(car.getY() + touchpad.getKnobPercentY()*carSpeedY);
-		
 		// to follow the player
 		camera.position.set(car.getX() + 300, car.getY(), 0);
 		camera.update();
@@ -89,15 +86,25 @@ public class Rallye extends Actor implements Screen
 		car.draw(batch);
 		batch.end();   
 
-//		final TiledMapTileLayer collision = (TiledMapTileLayer) map.getLayers().get(0);
-//		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
-//		final int tileY = (int)(car.getY()/32);
+		final TiledMapTileLayer collisionTerrain = (TiledMapTileLayer) map.getLayers().get("Terrain");
+		final TiledMapTileLayer collisionObjet = (TiledMapTileLayer) map.getLayers().get("Objets");
+		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
+		final int tileY = (int)(car.getY()/32);
 
-//		if(collision.getCell(tileX, tileY).getTile().getProperties().containsKey("limit"))
-//		{
-//			car.setX((float) (Gdx.graphics.getWidth() * 0.50));
-//			car.setY((float) (Gdx.graphics.getHeight() * 0.35));
-//		}
+		if(collisionTerrain.getCell(tileX, tileY).getTile().getProperties().containsKey("slow"))
+		{
+			car.setX(car.getX() + touchpad.getKnobPercentX()*10);
+			car.setY(car.getY() + touchpad.getKnobPercentY()*5);
+		}
+		else if (collisionObjet.getCell(tileX, tileY) != null)
+		{
+			car.setX((float) (car.getX() + touchpad.getKnobPercentX()*0.35));
+			car.setY((float) (car.getY() + touchpad.getKnobPercentY()*0.35));
+		}
+		else {
+			car.setX(car.getX() + touchpad.getKnobPercentX()*carSpeedX);
+			car.setY(car.getY() + touchpad.getKnobPercentY()*carSpeedY);
+		}
 
 	}
 
