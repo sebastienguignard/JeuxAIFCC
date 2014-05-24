@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -85,29 +86,38 @@ public class Rallye extends Actor implements Screen
 		batch.begin();
 		car.draw(batch);
 		batch.end();   
+		
+		checkCollision();
+	}
+
+	public void checkCollision() {
 
 		final TiledMapTileLayer collisionTerrain = (TiledMapTileLayer) map.getLayers().get("Terrain");
 		final TiledMapTileLayer collisionObjet = (TiledMapTileLayer) map.getLayers().get("Objets");
 		final int tileX = (int)(car.getX()/32); // taille de la tuile 32 * 32 
 		final int tileY = (int)(car.getY()/32);
-
-		if(collisionTerrain.getCell(tileX, tileY).getTile().getProperties().containsKey("slow"))
+		
+		if (collisionTerrain.getCell(tileX, tileY).getTile().getProperties().containsKey("limit"))
+		{
+			car.setX((float) (car.getX() + touchpad.getKnobPercentX()*5));
+			car.setY((float) (car.getY() + touchpad.getKnobPercentY()*0.15));
+		}
+		else if(collisionTerrain.getCell(tileX, tileY).getTile().getProperties().containsKey("slow"))
 		{
 			car.setX(car.getX() + touchpad.getKnobPercentX()*10);
 			car.setY(car.getY() + touchpad.getKnobPercentY()*5);
 		}
 		else if (collisionObjet.getCell(tileX, tileY) != null)
 		{
-			car.setX((float) (car.getX() + touchpad.getKnobPercentX()*0.35));
+			car.setX((float) (car.getX() + touchpad.getKnobPercentX()*0));
 			car.setY((float) (car.getY() + touchpad.getKnobPercentY()*0.35));
 		}
-		else {
+		else 
+		{
 			car.setX(car.getX() + touchpad.getKnobPercentX()*carSpeedX);
 			car.setY(car.getY() + touchpad.getKnobPercentY()*carSpeedY);
 		}
-
 	}
-
 	public void TouchPad() {
 
 		//Create a touchpad skin	
