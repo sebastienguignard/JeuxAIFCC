@@ -22,8 +22,8 @@ public class MenuChoixCircuit implements Screen {
 	private TextureRegion background, title, bitume, desert, rallye, snow;
 	private Image backgroundImg, titleImg, bitumeImg, desertImg, rallyeImg, snowImg;
 
-	public MenuChoixCircuit(MainGame g) {
-		game = g;
+	public MenuChoixCircuit(final MainGame gameScreen) {
+		game = gameScreen;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
@@ -51,7 +51,7 @@ public class MenuChoixCircuit implements Screen {
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				game.setScreen(new Bitume());
+				game.setScreen(new Bitume(gameScreen));
 				return true;
 			}
 		});
@@ -66,7 +66,7 @@ public class MenuChoixCircuit implements Screen {
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				game.setScreen(new Desert());
+				game.setScreen(new Desert(gameScreen));
 				return true;
 			}
 		});
@@ -81,7 +81,7 @@ public class MenuChoixCircuit implements Screen {
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				game.setScreen(new Rallye());
+				game.setScreen(new Rallye(gameScreen));
 				return true;
 			}
 		});
@@ -96,7 +96,7 @@ public class MenuChoixCircuit implements Screen {
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				game.setScreen(new Snow());
+				game.setScreen(new Snow(gameScreen));
 				return true;
 			}
 		});
