@@ -76,9 +76,9 @@ public class Snow extends Actor implements Screen
 		camera.update();
 
 		//Create the car Sprite
-		carTxt = new Texture(Gdx.files.internal("cars/snow.png"));
+		carTxt = new Texture(Gdx.files.internal("cars/blue race.png"));
 		car = new Sprite(carTxt);
-		car.setSize(250, 150);
+		car.setSize(200, 200);
 		posIniX = (float) (Gdx.graphics.getWidth() * 0.85);
 		posIniY = (float) (Gdx.graphics.getHeight() * 1.95);
 		car.setPosition(posIniX, posIniY);

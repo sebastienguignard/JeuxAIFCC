@@ -45,8 +45,8 @@ public class MenuChoixCircuit implements Screen {
 		bitumeImg = new Image(bitume);
 		bitumeImg.setX((float) (Gdx.graphics.getWidth() *0.1));
 		bitumeImg.setY((float) (Gdx.graphics.getHeight() / 3));
-		bitumeImg.setWidth(150);
-		bitumeImg.setHeight(150);
+		bitumeImg.setWidth((float) (Gdx.graphics.getWidth() *0.195));
+		bitumeImg.setHeight((float) (Gdx.graphics.getHeight() *0.315));
 		bitumeImg.addListener(new ClickListener() 
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -60,8 +60,8 @@ public class MenuChoixCircuit implements Screen {
 		desertImg = new Image(desert);
 		desertImg.setX((float) (Gdx.graphics.getWidth() *0.3));
 		desertImg.setY((float) (Gdx.graphics.getHeight() / 3));
-		desertImg.setWidth(150);
-		desertImg.setHeight(150);
+		desertImg.setWidth((float) (Gdx.graphics.getWidth() *0.195));
+		desertImg.setHeight((float) (Gdx.graphics.getHeight() *0.315));
 		desertImg.addListener(new ClickListener() 
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -75,8 +75,8 @@ public class MenuChoixCircuit implements Screen {
 		rallyeImg = new Image(rallye);
 		rallyeImg.setX((float) (Gdx.graphics.getWidth() * 0.5));
 		rallyeImg.setY((float) (Gdx.graphics.getHeight() / 3));
-		rallyeImg.setWidth(150);
-		rallyeImg.setHeight(150);
+		rallyeImg.setWidth((float) (Gdx.graphics.getWidth() *0.195));
+		rallyeImg.setHeight((float) (Gdx.graphics.getHeight() *0.315));
 		rallyeImg.addListener(new ClickListener() 
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -90,8 +90,8 @@ public class MenuChoixCircuit implements Screen {
 		snowImg = new Image(snow);
 		snowImg.setX((float) (Gdx.graphics.getWidth() * 0.7));
 		snowImg.setY((float) (Gdx.graphics.getHeight() / 3));
-		snowImg.setWidth(150);
-		snowImg.setHeight(150);
+		snowImg.setWidth((float) (Gdx.graphics.getWidth() *0.195));
+		snowImg.setHeight((float) (Gdx.graphics.getHeight() *0.315));
 		snowImg.addListener(new ClickListener() 
 		{
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)

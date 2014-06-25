@@ -47,7 +47,7 @@ public class Desert extends Actor implements Screen
 	private Vector2 carRecPosition;
 	private ShapeRenderer sr = new ShapeRenderer();
 	private MapObjects CollisionLayer;
-	private TiledMapTileLayer SandaLayer, SandbLayer, EndLayer;
+	private TiledMapTileLayer mapLayer, SandaLayer, SandbLayer, EndLayer;
 	private int tileX, tileY;
 	private float posIniX, posIniY;
 	private String timeTxt;
@@ -83,6 +83,7 @@ public class Desert extends Actor implements Screen
 		posIniY = (float) (Gdx.graphics.getHeight() * 1.95);
 		car.setPosition(posIniX, posIniY);
 
+		mapLayer = (TiledMapTileLayer) map.getLayers().get("Map");
 		EndLayer = (TiledMapTileLayer) map.getLayers().get("End Line");
 		SandaLayer = (TiledMapTileLayer) map.getLayers().get("Sand_a");	
 		SandbLayer = (TiledMapTileLayer) map.getLayers().get("Sand_b");	
@@ -143,7 +144,7 @@ public class Desert extends Actor implements Screen
 
 		if(!isCollided) 
 		{	
-			moveTheCar(12,5);
+			moveTheCar(13,5);
 			for (MapObject Object : CollisionLayer) 
 			{
 				if (Object instanceof RectangleMapObject)
@@ -160,6 +161,10 @@ public class Desert extends Actor implements Screen
 						isCollided = true;
 					}
 				}
+			}
+			if (mapLayer.getCell(tileX, tileY).getTile().getProperties().containsKey("slow"))
+			{
+				moveTheCar(-12,-4);
 			}
 			if(SandaLayer.getCell(tileX, tileY) != null)
 			{

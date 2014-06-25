@@ -2,6 +2,8 @@ package com.race.game.races;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -28,10 +29,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.race.game.MainGame;
 import com.race.game.screens.SuivantD;
-import com.race.game.screens.MenuChoixCircuit;
 
 public class Bitume extends Actor implements Screen 
 {
+	private Music music;
+	private Sound sound;
 	private MainGame game;
 	private Stage stage;
 	private TiledMap map;
@@ -66,6 +68,12 @@ public class Bitume extends Actor implements Screen
 		stage.act(Gdx.graphics.getDeltaTime());
 		TouchPad();
 		stage.addActor(touchpad);
+		
+		music=Gdx.audio.newMusic(Gdx.files.internal("sound/01 Temps mort.mp3"));
+		music.setLooping(true);
+		music.play();
+		
+		sound=Gdx.audio.newSound(Gdx.files.internal("sound/test.mp3"));
 
 		// Level
 		map = new TmxMapLoader().load("maps/bitume/Bitume.tmx");
@@ -80,7 +88,7 @@ public class Bitume extends Actor implements Screen
 		carTxt = new Texture(Gdx.files.internal("cars/bitume.png"));
 		car = new Sprite(carTxt);
 		car.setSize(200, 200);
-		car.setPosition((float) (Gdx.graphics.getWidth() * 0.85) , (float) (Gdx.graphics.getHeight()*1.95));
+		car.setPosition((float) (Gdx.graphics.getWidth() * 1) , (float) (Gdx.graphics.getHeight()*1.88));
 
 		mapLayer = (TiledMapTileLayer) map.getLayers().get("Map");	
 		CollisionLayer = map.getLayers().get("Collision").getObjects();
@@ -93,7 +101,8 @@ public class Bitume extends Actor implements Screen
 		// Initialisation
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		
+		
 		// to follow the player
 		camera.position.set(car.getX() + 400, car.getY(), 0);
 		camera.update();
@@ -103,7 +112,6 @@ public class Bitume extends Actor implements Screen
 		// Render the map and set the camera
 		renderer.setView(camera);
 		renderer.render();
-
 
 		// Render images  
 		stage.act(Gdx.graphics.getDeltaTime());
@@ -131,6 +139,7 @@ public class Bitume extends Actor implements Screen
 	{
 		car.setX((float) (car.getX() + touchpad.getKnobPercentX()*i));
 		car.setY((float) (car.getY() + touchpad.getKnobPercentY()*j));
+		sound.play();
 	}
 
 	public void checkCollision() 
@@ -221,6 +230,8 @@ public class Bitume extends Actor implements Screen
 		map.dispose();
 		renderer.dispose();
 		touchpadSkin.dispose();
+		music.dispose();
+		sound.dispose();
 	}
 
 	@Override

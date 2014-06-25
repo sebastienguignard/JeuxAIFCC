@@ -1,11 +1,12 @@
 package com.race.game;
 
 import com.badlogic.gdx.Game;
+import com.race.game.races.Desert;
 import com.race.game.screens.MenuAccueil;
 
 public class MainGame extends Game {
 	MenuAccueil MenuAccueil;
-
+	
 	@Override
 	public void create() 
 	{	
