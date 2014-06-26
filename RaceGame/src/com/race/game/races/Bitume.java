@@ -69,11 +69,10 @@ public class Bitume extends Actor implements Screen
 		TouchPad();
 		stage.addActor(touchpad);
 		
-		music=Gdx.audio.newMusic(Gdx.files.internal("sound/01 Temps mort.mp3"));
+		music=Gdx.audio.newMusic(Gdx.files.internal("sound/bitume.mp3"));
+		music.setVolume(1f);
 		music.setLooping(true);
 		music.play();
-		
-		sound=Gdx.audio.newSound(Gdx.files.internal("sound/test.mp3"));
 
 		// Level
 		map = new TmxMapLoader().load("maps/bitume/Bitume.tmx");
@@ -139,7 +138,6 @@ public class Bitume extends Actor implements Screen
 	{
 		car.setX((float) (car.getX() + touchpad.getKnobPercentX()*i));
 		car.setY((float) (car.getY() + touchpad.getKnobPercentY()*j));
-		sound.play();
 	}
 
 	public void checkCollision() 
@@ -173,6 +171,7 @@ public class Bitume extends Actor implements Screen
 			}
 			if (mapLayer.getCell(tileX, tileY).getTile().getProperties().containsKey("end"))
 			{
+				music.stop();
 				game.setScreen(new SuivantD(game));
 			}
 		}

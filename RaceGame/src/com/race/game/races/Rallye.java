@@ -2,6 +2,7 @@ package com.race.game.races;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -53,6 +54,7 @@ public class Rallye extends Actor implements Screen
 	BitmapFont displayTime;
 	long sec = 0, min = 0;
 	private boolean isCollided;
+	private Music music;
 
 	public Rallye(MainGame g) {
 
@@ -65,6 +67,11 @@ public class Rallye extends Actor implements Screen
 		TouchPad();
 		stage.addActor(touchpad);
 
+		music=Gdx.audio.newMusic(Gdx.files.internal("sound/rallye.mp3"));
+		music.setVolume(1f);
+		music.setLooping(true);
+		music.play();
+		
 		// Level
 		map = new TmxMapLoader().load("maps/rallye/Rallye.tmx");
 		renderer = new OrthogonalTiledMapRenderer(map);
@@ -168,6 +175,7 @@ public class Rallye extends Actor implements Screen
 			}
 			if (EndLayer.getCell(tileX, tileY) != null)
 			{
+				music.stop();
 				game.setScreen(new SuivantS(game));
 			}
 		}

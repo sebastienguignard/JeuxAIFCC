@@ -2,6 +2,7 @@ package com.race.game.races;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -54,6 +56,7 @@ public class Snow extends Actor implements Screen
 	BitmapFont displayTime;
 	long sec = 0, min = 0;
 	private boolean isCollided;
+	private Music music;
 
 	public Snow(MainGame g) {
 
@@ -66,6 +69,11 @@ public class Snow extends Actor implements Screen
 		TouchPad();
 		stage.addActor(touchpad);
 
+		music=Gdx.audio.newMusic(Gdx.files.internal("sound/snow.mp3"));
+		music.setVolume(1f);
+		music.setLooping(true);
+		music.play();
+		
 		// Level
 		map = new TmxMapLoader().load("maps/snow/Snow.tmx");
 		renderer = new OrthogonalTiledMapRenderer(map);
@@ -124,10 +132,10 @@ public class Snow extends Actor implements Screen
 
 		// Collision rectangle movement
 		carRecPosition = new Vector2();
-		carRecPosition.x = car.getX() + 170;
-		carRecPosition.y = car.getY() + 25;
+		carRecPosition.x = car.getX() + 13;
+		carRecPosition.y = car.getY() + 75;
 		// Outline of the car (for collision)
-		carRec = new Rectangle(carRecPosition.x, carRecPosition.y, 20, 55);
+		carRec = new Rectangle(carRecPosition.x, carRecPosition.y, 170, 72);
 		checkCollision();
 	}
 
@@ -139,8 +147,8 @@ public class Snow extends Actor implements Screen
 
 	public void checkCollision() 
 	{
-		tileX = (int)((car.getX() + 85) /32);
-		tileY = (int)((car.getY() + 15) /32);
+		tileX = (int)((car.getX() + 80) /32);
+		tileY = (int)((car.getY() + 80) /32);
 
 		if(!isCollided) 
 		{	
@@ -150,10 +158,10 @@ public class Snow extends Actor implements Screen
 				if (Object instanceof RectangleMapObject)
 				{
 					Rectangle rec = ((RectangleMapObject) Object).getRectangle();
-					//								sr.begin(ShapeType.Filled);
-					//								sr.rect(rec.x, rec.y, rec.width, rec.height);
-					//								sr.rect(carRec.x, carRec.y, carRec.width, carRec.height);
-					//								sr.end();
+//													sr.begin(ShapeType.Filled);
+//													sr.rect(rec.x, rec.y, rec.width, rec.height);
+//													sr.rect(carRec.x, carRec.y, carRec.width, carRec.height);
+//													sr.end();
 
 
 					if (Intersector.overlaps(carRec, rec))
@@ -181,6 +189,7 @@ public class Snow extends Actor implements Screen
 			}
 			if (mapLayer.getCell(tileX, tileY).getTile().getProperties().containsKey("end"))
 			{
+				music.stop();
 				game.setScreen(new CircuitTermine(game));
 			}
 		}
