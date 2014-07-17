@@ -46,7 +46,6 @@ public class Desert extends Actor implements Screen
 	private Sprite car;
 	private Rectangle carRec;
 	private Vector2 carRecPosition;
-	private ShapeRenderer sr = new ShapeRenderer();
 	private MapObjects CollisionLayer;
 	private TiledMapTileLayer mapLayer, SandaLayer, SandbLayer, EndLayer;
 	private int tileX, tileY;
@@ -62,6 +61,7 @@ public class Desert extends Actor implements Screen
 		game = g;
 		batch = new SpriteBatch();
 		stage = new Stage();
+		camera = new OrthographicCamera();
 		displayTime = new BitmapFont();
 		Gdx.input.setInputProcessor(stage);
 		stage.act(Gdx.graphics.getDeltaTime());
@@ -109,7 +109,6 @@ public class Desert extends Actor implements Screen
 		camera.position.set(car.getX() + 400, car.getY(), 0);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-		sr.setProjectionMatrix(camera.combined);
 
 		// Render the map and set the camera
 		renderer.setView(camera);
@@ -233,7 +232,7 @@ public class Desert extends Actor implements Screen
 	@Override
 	public void resize(int width, int height) {
 		float aspectRatio = (float) width / (float) height;
-		camera = new OrthographicCamera(850 * aspectRatio, 850);
+		camera.setToOrtho(false, 850* aspectRatio , 850);
 	}
 
 	@Override
