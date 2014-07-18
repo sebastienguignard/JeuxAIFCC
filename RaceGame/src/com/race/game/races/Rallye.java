@@ -85,8 +85,8 @@ public class Rallye extends Actor implements Screen
 		carTxt = new Texture(Gdx.files.internal("cars/rallye.png"));
 		car = new Sprite(carTxt);
 		car.setSize(200, 110);
-		car.setPosition((float) (Gdx.graphics.getWidth() * 0.85) , (float) (Gdx.graphics.getHeight()*1.95));
 
+		car.setPosition(770,850);
 		GrassLayer = (TiledMapTileLayer) map.getLayers().get("Grass");	
 		mapLayer = (TiledMapTileLayer) map.getLayers().get("Map");	
 		EndLayer = (TiledMapTileLayer) map.getLayers().get("EndLine");

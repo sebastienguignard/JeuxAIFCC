@@ -89,8 +89,8 @@ public class Snow extends Actor implements Screen
 		car.setSize(200, 200);
 		posIniX = (float) (Gdx.graphics.getWidth() * 0.85);
 		posIniY = (float) (Gdx.graphics.getHeight() * 1.95);
-		car.setPosition(posIniX, posIniY);
 
+		car.setPosition(770,850);
 		mapLayer = (TiledMapTileLayer) map.getLayers().get("Map");
 		GrassLayer = (TiledMapTileLayer) map.getLayers().get("Grass");	
 		IceLayer = (TiledMapTileLayer) map.getLayers().get("Ice");	

@@ -88,7 +88,8 @@ public class Desert extends Actor implements Screen
 		car.setSize(210, 160);
 		posIniX = (float) (Gdx.graphics.getWidth() * 0.85);
 		posIniY = (float) (Gdx.graphics.getHeight() * 1.95);
-		car.setPosition(posIniX, posIniY);
+
+		car.setPosition(770,850);
 
 		mapLayer = (TiledMapTileLayer) map.getLayers().get("Map");
 		EndLayer = (TiledMapTileLayer) map.getLayers().get("End Line");

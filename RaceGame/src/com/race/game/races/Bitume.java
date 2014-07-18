@@ -89,8 +89,10 @@ public class Bitume extends Actor implements Screen
 		carTxt = new Texture(Gdx.files.internal("cars/bitume.png"));
 		car = new Sprite(carTxt);
 		car.setSize(200, 200);
-		car.setPosition((float) (Gdx.graphics.getWidth() * 1) , (float) (Gdx.graphics.getHeight()*1.88));
+		car.setPosition(770,850);
 
+		System.out.println("largeur : "+Gdx.graphics.getWidth()+"\nHauteur : "+Gdx.graphics.getHeight());
+		
 		mapLayer = (TiledMapTileLayer) map.getLayers().get("Map");	
 		CollisionLayer = map.getLayers().get("Collision").getObjects();
 		isCollided = false;	
